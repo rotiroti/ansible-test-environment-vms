@@ -1,0 +1,14 @@
+# -*- mode: gitignore; -*-
+# Emacs
+*~
+\#*\#
+
+# Vagrant
+.vagrant/
+
+# Ansible
+*.retry
+
+# macOS
+*.DS_Store
+
