@@ -1,28 +1,38 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-Vagrant.configure("2") do |config|
-  config.vm.box = "bento/ubuntu-16.04"
+VAGRANTFILE_API_VERSION ||= "2"
 
-  # Disable automatic box update checking. If you disable this, then
-  # boxes will only be checked for updates when the user runs
-  # `vagrant box outdated`. This is not recommended.
-  # config.vm.box_check_update = false
+Vagrant.require_version '>= 1.9.0'
 
-  # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
-  config.vm.network "private_network", ip: "192.168.100.2"
+boxes = [
+  {
+    :name => "trusty",
+    :box => "ubuntu/trusty64",
+    :eth1 => "192.168.100.2"
+  },
+  {
+    :name => "centos7",
+    :box => "centos/7",
+    :eth1 => "192.168.100.3"
+  }  
+]
 
-  # Create a public network, which generally matched to bridged network.
-  # Bridged networks make the machine appear as another physical device on
-  # your network.
-  # config.vm.network "public_network"
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  
+  # Disabling the default /vagrant share
+  config.vm.synced_folder ".", "/vagrant", disabled: true
 
-  # Share an additional folder to the guest VM. The first argument is
-  # the path on the host to the actual folder. The second argument is
-  # the path on the guest to mount the folder. And the optional third
-  # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
+  # Using default insecure key
+  config.ssh.insert_key = false
+
+  boxes.each do |b|
+    config.vm.define b[:name] do |config|
+      config.vm.hostname = b[:name]
+      config.vm.box = b[:box]
+      config.vm.network "private_network", ip: b[:eth1]
+    end
+  end
 
   config.vm.provider "virtualbox" do |vb|
     # Display the VirtualBox GUI when booting the machine
@@ -32,7 +42,7 @@ Vagrant.configure("2") do |config|
     vb.memory = "1024"
 
     # Customize the amount of cpus on the VM:
-    vb.cpus = 2
+    vb.cpus = 1
 
     # Change the network card hardware for better performance
     vb.customize ["modifyvm", :id, "--nictype1", "virtio" ]
@@ -47,8 +57,9 @@ Vagrant.configure("2") do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  # config.vm.provision "shell", inline: <<-SHELL
-  #   apt-get update
-  #   apt-get install -y apache2
-  # SHELL
+  config.vm.provision "ansible" do |ansible|
+    ansible.verbose = "vvv"
+    ansible.limit = "all"
+    ansible.playbook = "playbook.yml"
+  end
 end
