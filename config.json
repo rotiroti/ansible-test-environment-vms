@@ -1,0 +1,10 @@
+[
+    {
+        "name": "trusty",
+        "box": "ubuntu/trusty64"
+    },
+    {
+        "name": "centos7",
+        "box": "centos/7"
+    }    
+]
