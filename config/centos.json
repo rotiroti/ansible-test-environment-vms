@@ -1,0 +1,6 @@
+[
+    {
+        "name": "centos7",
+        "box": "centos/7"
+    }
+]
