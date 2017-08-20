@@ -1,0 +1,18 @@
+[
+    {
+        "name": "geerlingguy-xenial",
+        "box": "geerlingguy/ubuntu1604"
+    },
+    {
+        "name": "geerlingguy-trusty",
+        "box": "geerlingguy/ubuntu1404"
+    },
+    {
+        "name": "geerlingguy-centos7",
+        "box": "geerlingguy/centos7"
+    },
+    {
+        "name": "geerlingguycentos6",
+        "box": "geerlingguy/centos6"
+    }
+]
