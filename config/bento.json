@@ -1,0 +1,18 @@
+[
+    {
+        "name": "bento-xenial",
+        "box": "bento/ubuntu-16.04"
+    },
+    {
+        "name": "bento-trusty",
+        "box": "bento/ubuntu-14.04"
+    },
+    {
+        "name": "bento-centos7",
+        "box": "bento/centos-7.2"
+    },
+    {
+        "name": "bento-centos6",
+        "box": "bento/centos-6.7"
+    }        
+]
