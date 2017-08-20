@@ -1,0 +1,10 @@
+[
+    {
+        "name": "freebsd11",
+        "box": "freebsd/FreeBSD-11.0-STABLE"
+    },    
+    {
+        "name": "freebsd10",
+        "box": "freebsd/FreeBSD-10.3-STABLE"
+    }
+]
