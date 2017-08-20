@@ -1,22 +1,14 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+require 'json'
+require 'yaml'
+
 VAGRANTFILE_API_VERSION ||= "2"
 
 Vagrant.require_version '>= 1.9.0'
 
-machines = [
-  {
-    :name => "trusty",
-    :box => "ubuntu/trusty64",
-    :eth1 => "192.168.100.2"
-  },
-  {
-    :name => "centos7",
-    :box => "centos/7",
-    :eth1 => "192.168.100.3"
-  }  
-]
+machines = JSON.parse(File.read(File.join(File.dirname(__FILE__), 'config.json')))
 
 # Number of boxes
 N = machines.length
@@ -30,10 +22,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.insert_key = false
 
   machines.each_with_index do |machine, machine_index|
-    config.vm.define machine[:name] do |node|
-      node.vm.hostname = machine[:name]
-      node.vm.box = machine[:box]
-      node.vm.network "private_network", ip: machine[:eth1]
+    config.vm.define machine['name'] do |node|
+      node.vm.hostname = machine['name']
+      node.vm.box = machine['box']
+      node.vm.network "private_network", ip: "192.168.77.#{20+machine_index}"
 
       # Only execute once the Ansible provisioner,
       # when all the machines are up and ready.
@@ -46,7 +38,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         # Enable provisioning with Ansible.
         node.vm.provision :ansible do |ansible|
           # Verbosity level
-          ansible.verbose = "vvv"
+          ansible.verbose = "v"
 
           # Disable default limit to connect to all the machines          
           ansible.limit = "all"
