@@ -5,6 +5,7 @@
 
 # Vagrant
 .vagrant/
+*.log
 
 # Ansible
 *.retry

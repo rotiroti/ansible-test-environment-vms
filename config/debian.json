@@ -1,0 +1,6 @@
+[
+    {
+        "name": "debian-jessie64",
+        "box": "debian/jessie64"
+    }    
+]

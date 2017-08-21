@@ -1,0 +1,10 @@
+[
+    {
+        "name": "ubuntu-xenial",
+        "box": "ubuntu/xenial"
+    },
+    {
+        "name": "ubuntu-trusty",
+        "box": "ubuntu/trusty"
+    }    
+]

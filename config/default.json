@@ -1,0 +1,22 @@
+[
+    {
+        "name": "bento-trusty",
+        "box": "bento/ubuntu-14.04"
+    },
+    {
+        "name": "bento-centos7",
+        "box": "bento/centos-7.2"
+    },
+    {
+        "name": "bento-centos6",
+        "box": "bento/centos-6.7"
+    },
+    {
+        "name": "debian-jessie64",
+        "box": "debian/jessie64"
+    },    
+    {
+        "name": "terrywang-archlinux",
+        "box": "terrywang/archlinux"
+    }
+]
